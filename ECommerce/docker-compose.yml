@@ -5,7 +5,11 @@ services:
     image: ${DOCKER_REGISTRY-}order
     build:
       context: .
-      dockerfile: Order/Dockerfile
+      dockerfile: ApiOrder/Dockerfile
+    depends_on:
+      - elasticsearch
+      - kibana
+
   
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1

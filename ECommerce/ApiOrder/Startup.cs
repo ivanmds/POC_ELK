@@ -10,8 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Nest;
 
-namespace Order
+namespace ApiOrder
 {
     public class Startup
     {
@@ -26,6 +27,11 @@ namespace Order
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var settings = new ConnectionSettings(new Uri("http://elasticsearch:9200"));
+            var client = new ElasticClient(settings);
+
+            services.AddSingleton(client);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
